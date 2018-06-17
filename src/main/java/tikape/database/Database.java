@@ -8,15 +8,21 @@ public class Database {
     private boolean debug;
     private String address;
 
+    
     public Database(String driver, String address) throws Exception {
         Class.forName(driver);
         this.address = address;
     }
 
-    public Connection getConnection() throws SQLException {
-        return DriverManager.getConnection(this.address);
-    }
+    public static Connection getConnection() throws SQLException {
+        String dbUrl = System.getenv("JDBC_DATABASE_URL");
+        if (dbUrl != null && dbUrl.length() > 0) {
+            return DriverManager.getConnection(dbUrl);
+        }
 
+        return DriverManager.getConnection("jdbc:sqlite:smoothiet.db");
+    }
+    
     public void setDebugMode(boolean d) {
         debug = d;
     }
