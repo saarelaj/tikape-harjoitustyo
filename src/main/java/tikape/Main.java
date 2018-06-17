@@ -1,5 +1,7 @@
 package tikape;
 
+import java.sql.Connection;
+import java.sql.DriverManager;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -69,9 +71,11 @@ public class Main {
             lista = annosraakaaineDao.findAll();
 
             int loytyi = 0;
-            for (AnnosRaakaAine arr : lista) {
-                if (arr.getAnnosId() == annos && arr.getRaakaAineId() == raakaaine) {
-                    loytyi = 1;
+            if (lista.size() > 0) {
+                for (AnnosRaakaAine arr : lista) {
+                    if (arr.getAnnosId() == annos && arr.getRaakaAineId() == raakaaine) {
+                        loytyi = 1;
+                    }
                 }
             }
 
@@ -130,4 +134,5 @@ public class Main {
         });
 
     }
+
 }
